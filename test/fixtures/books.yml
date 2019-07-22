@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  googleBookId: MyString
+  title: MyString
+  subtitle: MyString
+  authors: MyString
+  datePublished: MyString
+  printedPageCount: MyString
+  categories: MyString
+  language: MyString
+  image: MyString
+
+two:
+  googleBookId: MyString
+  title: MyString
+  subtitle: MyString
+  authors: MyString
+  datePublished: MyString
+  printedPageCount: MyString
+  categories: MyString
+  language: MyString
+  image: MyString
