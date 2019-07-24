@@ -20,10 +20,30 @@ class BooksController < ApplicationController
       book.delete
     end
 
+    def findcreate
+      if Book.exists?(googleBookId: book_params[:googleBookId])
+        foundBook = Book.find(googleBookId: book_params[:googleBookId])
+        UserBook.create(book_id: foundBook.id, user_id: current_user.id, googleBookId: foundBook.googleBookId)
+      else
+      newBook = Book.create(googleBookId: book_params[:googleBookId]) do |book|
+        book.title = book_params[:title]
+        book.subtitle = book_params[:subtitle]
+        book.authors = book_params[:authors]
+        book.datePublished = book_params[:datePublished]
+        book.printedPageCount = book_params[:printedPageCount]
+        book.categories = book_params[:categories]
+        book.language = book_params[:language]
+        book.image = book_params[:image]
+        book.description = book_params[:description]
+      end
+        UserBook.create(book_id: newBook.id, user_id: current_user.id, googleBookId: newBook.googleBookId, title: newBook.title)
+      end
+    end
+
     private 
 
     def book_params
-        params.require(:book).permit(:googleBookId, :title, :subtitle, :authors, :datePublished, :printedPageCount, :categories, :language, :image)
+        params.require(:book).permit(:googleBookId, :title, :subtitle, :authors, :datePublished, :printedPageCount, :categories, :language, :image, :description)
     end
 
 end

@@ -1,6 +1,4 @@
 class UserBookSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :user, :book, :shelves
-  belongs_to :user
-  belongs_to :book
+  attributes :user_id, :googleBookId, :title, :shelves, :thoughts, :book 
 end

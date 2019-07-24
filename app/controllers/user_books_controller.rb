@@ -11,19 +11,19 @@ class UserBooksController < ApplicationController
     end
 
     def create
-      userbook = UserBook.create(user_params)
+      userbook = UserBook.create(userbook_params)
       render json: UserSerializer.new(userbook)
     end
 
     def destroy
-      userbook = UserBook.find_by(params[:id])
+      userbook = UserBook.find(params[:id])
       userbook.delete
     end
 
     private 
 
     def userbook_params
-        params.require(:userbook).permit(:user_id, :book_id, :shelves)
+        params.require(:userbook).permit(:user_id, :book_id, :shelves, :thoughts, :googleBookId, :title)
     end
 
 end
