@@ -22,10 +22,9 @@ class BooksController < ApplicationController
 
     def findcreate
       if Book.exists?(googleBookId: book_params[:googleBookId])
-        foundBook = Book.find(googleBookId: book_params[:googleBookId])
-        UserBook.create(book_id: foundBook.id, user_id: current_user.id, googleBookId: foundBook.googleBookId)
-      else
-      newBook = Book.create(googleBookId: book_params[:googleBookId]) do |book|
+        foundBook = Book.find_by(googleBookId: book_params[:googleBookId])
+        UserBook.create(book_id: foundBook.id, user_id: current_user.id, googleBookId: foundBook.googleBookId, title: foundBook.title, authors: foundBook.authors)
+      else newBook = Book.create(googleBookId: book_params[:googleBookId]) do |book|
         book.title = book_params[:title]
         book.subtitle = book_params[:subtitle]
         book.authors = book_params[:authors]
@@ -36,7 +35,7 @@ class BooksController < ApplicationController
         book.image = book_params[:image]
         book.description = book_params[:description]
       end
-        UserBook.create(book_id: newBook.id, user_id: current_user.id, googleBookId: newBook.googleBookId, title: newBook.title)
+        UserBook.create(book_id: newBook.id, user_id: current_user.id, googleBookId: newBook.googleBookId, title: newBook.title, authors: newBook.authors)
       end
     end
 

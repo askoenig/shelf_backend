@@ -10,10 +10,18 @@ class UserBooksController < ApplicationController
       render json: UserBookSerializer.new(userbook)
     end
 
-    def create
-      userbook = UserBook.create(userbook_params)
-      render json: UserSerializer.new(userbook)
+    def update
+      # debugger
+      userbook = UserBook.find(params[:id])
+      userbook.update(userbook_params)
+      render json: UserBookSerializer.new(userbook)
     end
+
+    # def create
+    #   userbook = UserBook.create(userbook_params)
+    #   debugger
+    #   render json: UserSerializer.new(userbook)
+    # end
 
     def destroy
       userbook = UserBook.find(params[:id])
@@ -23,7 +31,8 @@ class UserBooksController < ApplicationController
     private 
 
     def userbook_params
-        params.require(:userbook).permit(:user_id, :book_id, :shelves, :thoughts, :googleBookId, :title)
+        params.permit(:user_id, :book_id, :thoughts, :googleBookId, :title, :authors, :shelves, shelves: [])
+        # params.permit!
     end
 
 end
