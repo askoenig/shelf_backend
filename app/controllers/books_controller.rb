@@ -24,17 +24,7 @@ class BooksController < ApplicationController
       if Book.exists?(googleBookId: book_params[:googleBookId])
         foundBook = Book.find_by(googleBookId: book_params[:googleBookId])
         UserBook.create(book_id: foundBook.id, user_id: current_user.id, googleBookId: foundBook.googleBookId, title: foundBook.title, authors: foundBook.authors)
-      else newBook = Book.create(googleBookId: book_params[:googleBookId]) do |book|
-        book.title = book_params[:title]
-        book.subtitle = book_params[:subtitle]
-        book.authors = book_params[:authors]
-        book.datePublished = book_params[:datePublished]
-        book.printedPageCount = book_params[:printedPageCount]
-        book.categories = book_params[:categories]
-        book.language = book_params[:language]
-        book.image = book_params[:image]
-        book.description = book_params[:description]
-      end
+      else newBook = Book.create(book_params)
         UserBook.create(book_id: newBook.id, user_id: current_user.id, googleBookId: newBook.googleBookId, title: newBook.title, authors: newBook.authors)
       end
     end
